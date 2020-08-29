@@ -2,6 +2,8 @@
 
 cs61a Spring 2020 lab and hw .
 
+我的笔记：[Notes](https://weijiew.com/codestep/book/cs61a/ch0.html) 。
+
 # update
 
 * 2020/8/29 创建仓库。
