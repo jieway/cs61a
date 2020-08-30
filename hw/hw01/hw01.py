@@ -105,11 +105,11 @@ def c():
 
 def t():
     "*** YOUR CODE HERE ***"
-    print(1)    
+    print(5)    
 
 def f():
     "*** YOUR CODE HERE ***"
-    print(2)
+    print(6)
 
 def hailstone(x):
     """Print the hailstone sequence starting at x and return its
