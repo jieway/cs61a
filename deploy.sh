@@ -1,3 +1,3 @@
 git add .
-git commit -m "lab02 done"
+git commit -m "update"
 git push origin master
