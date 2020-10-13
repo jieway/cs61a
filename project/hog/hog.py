@@ -21,9 +21,14 @@ def roll_dice(num_rolls, dice=six_sided):
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    sum, f = 0, 0
+    for i in range(0, num_rolls):
+        tmp = dice()
+        if tmp == 1:
+            f = 1
+        sum += tmp
+    return 1 if f else sum
     # END PROBLEM 1
-
 
 def free_bacon(score):
     """Return the points scored from rolling 0 dice (Free Bacon).
