@@ -2,7 +2,7 @@
 
 from dice import six_sided, four_sided, make_test_dice
 from ucb import main, trace, interact
-
+from math import log10
 GOAL_SCORE = 100  # The goal of Hog is to score 100 points.
 
 ######################
@@ -37,7 +37,16 @@ def free_bacon(score):
     """
     assert score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    num, sum, i = pow(score, 3), 0, 0
+    while num != 0:
+        if i%2 == 1:
+            sum -= num % 10
+        else:
+            sum += num % 10
+        i += 1
+        num //= 10
+    finall = abs(sum) + 1
+    return finall
     # END PROBLEM 2
 
 
@@ -55,7 +64,10 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        return free_bacon(opponent_score)
+    else:
+        return roll_dice(num_rolls,dice)
     # END PROBLEM 3
 
 
@@ -64,7 +76,10 @@ def is_swap(player_score, opponent_score):
     Return whether the two scores should be swapped
     """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    num = pow(3,player_score + opponent_score)
+    a = num % 10
+    b = num // pow(10,int(log10(num)))
+    return (a == b)    
     # END PROBLEM 4
 
 
@@ -81,6 +96,7 @@ def other(who):
 
 def silence(score0, score1):
     """Announce nothing (see Phase 2)."""
+    print("Player 0 now has", score0, "and Player 1 now has", score1)
     return silence
 
 
@@ -104,14 +120,40 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    before_score0, before_score1 = 0, 0
+
+    while (score0 < goal) and (score1 < goal):
+        if who == 0:
+            dice_num = strategy0(score0, score1)
+            curr_score = take_turn(dice_num, score1, dice)
+            score0 += curr_score
+            if feral_hogs:
+                if checkNum(dice_num,before_score0):
+                    score0 +=3
+                before_score0 = curr_score
+
+        if who == 1:
+            dice_num = strategy1(score1, score0)
+            curr_score = take_turn(dice_num, score0, dice)
+            score1 += curr_score
+            if feral_hogs:
+                if checkNum(dice_num,before_score1):
+                    score1 +=3
+                before_score1 = curr_score
+
+        if is_swap(score0, score1):
+            score0, score1 = score1, score0
+        who = other(who)
+
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
-    "*** YOUR CODE HERE ***"
+        say = say(score0, score1)
     # END PROBLEM 6
     return score0, score1
 
+def checkNum(dice_num, before_num):
+    return (abs(dice_num - before_num) == 2)
 
 #######################
 # Phase 2: Commentary #
