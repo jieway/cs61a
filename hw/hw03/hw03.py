@@ -92,7 +92,10 @@ def count_change(total):
     >>> check(HW_SOURCE_FILE, 'count_change', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    i = 0
+    num = pow(2,i)
+
+    return 1 + count_change(total - )
     
 
 def missing_digits(n):
