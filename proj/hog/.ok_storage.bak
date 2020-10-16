@@ -5,3 +5,6 @@
 'Question 5a-correct', (2048, 70)
 'Question 5b-correct', (2560, 70)
 'Question 6-correct', (3072, 70)
+'Question 7-correct', (3584, 70)
+'Question 8-correct', (4096, 70)
+'Question 9-correct', (4608, 70)

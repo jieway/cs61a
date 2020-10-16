@@ -236,7 +236,23 @@ def announce_highest(who, prev_high=0, prev_score=0):
     """
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    def say(score0, score1):
+        if who:
+            curr_point = score1 - prev_score
+            if curr_point > prev_high:
+                print(str(curr_point)+" point(s)! That's the biggest gain yet for Player "+str(who))
+                return announce_highest(who,curr_point, score1)
+            else:
+                return announce_highest(who,prev_high, score1)
+
+        else :
+            curr_point = score0 - prev_score
+            if curr_point > prev_high:
+                print(str(curr_point)+" point(s)! That's the biggest gain yet for Player "+str(who))
+                return announce_highest(who,curr_point, score0)
+            else:
+                return announce_highest(who,prev_high, score0)
+    return say
     # END PROBLEM 7
 
 
@@ -275,7 +291,13 @@ def make_averaged(g, num_samples=1000):
     3.0
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    def avg(*args):
+        i , sum = 0 , 0
+        while i < num_samples:
+            sum += g(*args)
+            i += 1
+        return sum/num_samples
+    return avg
     # END PROBLEM 8
 
 
@@ -289,7 +311,17 @@ def max_scoring_num_rolls(dice=six_sided, num_samples=1000):
     1
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    i = 1
+    max = float("-inf")
+    max_index = 1
+    while i <= 10:
+        averaged_roll_dice = make_averaged(roll_dice, num_samples)
+        curr_value = averaged_roll_dice(i, dice)
+        if curr_value > max:
+            max_index = i
+            max = curr_value
+        i += 1
+    return max_index
     # END PROBLEM 9
 
 
