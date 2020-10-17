@@ -14,9 +14,9 @@ cs61a Spring 2020 lab and hw .
 * 2020/9/1
   * [hw02 Q4 未完。](https://weijiew.com/codestep/book/cs61a/hw2.html)
 
-> 中间开学后就耽搁了一段时间，最近又重启了
+> 中间开学后就耽搁了一段时间，最近又重启了。
 
 * 2020/10/16
-  * [Hog 完成了前 9 个。](https://weijiew.com/codestep/book/cs61a/hw2.html)
+  * [Hog 完成了前 9 个。](https://weijiew.com/codestep/book/cs61a/hog.html)
 * 2020/10/16
   * [how03 Q2 完成]()

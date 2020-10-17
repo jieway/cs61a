@@ -92,10 +92,22 @@ def count_change(total):
     >>> check(HW_SOURCE_FILE, 'count_change', ['While', 'For'])
     True
     """
-    i = 0
-    num = pow(2,i)
+    def largest_two(i):
+        if (i > total):
+            return i
+        else:
+            return largest_two(i * 2)
 
-    return 1 + count_change(total - )
+    def count(n,m):
+        if n == 0:
+            return 1
+        elif n < 0:
+            return 0
+        elif m == 0:
+            return 0
+        else:
+            return count(n-m,m) + count(n,m//2)
+    return count(total,largest_two(1))
     
 
 def missing_digits(n):
@@ -117,8 +129,16 @@ def missing_digits(n):
     >>> check(HW_SOURCE_FILE, 'missing_digits', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    def count(res,n,pre):
+        if n == 0:
+            return res
+        else:
+            if (pre - n % 10) > 1:
+                return count(res+ pre - n % 10 - 1,n // 10,n%10)
+            else:
+                return count(res,n // 10,n%10)
+    
+    return count(0,n,0)
 
 ###################
 # Extra Questions #
