@@ -125,6 +125,6 @@ def max_subseq(n, l):
     """
     if n == 0 or l == 0:
         return 0
-    a = 10 * max_subseq(n//10,l-1) + (n%10)
-    b = max_subseq(n//10, l)
-    return max(a,b)
+    a = 10 * max_subseq(n // 10, l - 1) + (n % 10)
+    b = max_subseq(n // 10, l)
+    return max(a, b)
