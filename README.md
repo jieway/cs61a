@@ -20,3 +20,5 @@ cs61a Spring 2020 lab and hw .
   * [Hog 完成了前 9 个。](https://weijiew.com/codestep/book/cs61a/hog.html)
 * 2020/10/16
   * [how03 Q2 完成]()
+* 2020/10/19
+  * [lab05 完成]()
