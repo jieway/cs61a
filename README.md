@@ -22,5 +22,6 @@ cs61a Spring 2020 lab and hw .
   * [how03 完成](https://weijiew.com/codestep/book/cs61a/hw03.html)
 * 2020/10/19
   * [lab05 完成](https://weijiew.com/codestep/book/cs61a/lab05.html)
-  * [hw03 q1-q3](https://weijiew.com/codestep/book/cs61a/hw03.html)
-  * [add cats]
+  * [hw03  完成](https://weijiew.com/codestep/book/cs61a/hw03.html)
+
+> 最近又有一堆事情，这两星期要把这个做完！！！

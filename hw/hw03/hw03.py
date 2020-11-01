@@ -134,7 +134,7 @@ def missing_digits(n):
             return res
         else:
             if (pre - n % 10) > 1:
-                return count(res+ pre - n % 10 - 1,n // 10,n%10)
+                return count(res + pre - n % 10 - 1,n // 10,n%10)
             else:
                 return count(res,n // 10,n%10)
     
