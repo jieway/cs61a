@@ -51,11 +51,11 @@ def largest_factor(x):
     1
     """
     "*** YOUR CODE HERE ***"
-    f = x - 1
-    while f > 0:
-        if x % f == 0:
-            return f
-        f -= 1
+    k = x - 1
+    while k >= 1:
+        if x % k == 0:
+            return k
+        k -= 1
 
 
 def if_function(condition, true_result, false_result):
