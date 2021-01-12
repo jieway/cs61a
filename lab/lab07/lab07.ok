@@ -1,0 +1,32 @@
+{
+    "name": "Lab 7",
+    "endpoint": "cal/cs61a/sp20/lab07",
+    "src": [
+        "lab07.py",
+        "classes.py",
+        "tests/link.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "classes.py": "doctest"
+    },
+    "default_tests": [
+        "link_to_list",
+        "cumulative_mul",
+        "link",
+        "Card.__init__",
+        "Card.power",
+        "Player.__init__",
+        "Player.draw",
+        "Player.play"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}

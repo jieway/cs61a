@@ -97,10 +97,9 @@ def balanced(m):
     >>> balanced(mobile(arm(1, w), arm(1, v)))
     False
     """
-    l, r = length(left(m)), length(right(m))
-    if l == r:
+    if is_planet(m):
         return True
-    return False
+    return length(left(m)) * total_weight(end(left(m))) == length(right(m)) * total_weight(end(right(m))) and balanced(end(left(m))) and balanced(end(right(m)))
 
 
 def totals_tree(m):
@@ -129,9 +128,8 @@ def totals_tree(m):
           2
     """
     if is_planet(m):
-        return size(m)
-    else:
-        return total_weight(end(left(m))) + total_weight(end(right(m)))
+        return [size(m)]
+    return [total_weight(m), totals_tree(end(left(m))), totals_tree(end(right(m)))]
 
 def replace_leaf(t, old, replacement):
     """Returns a new tree where every leaf value equal to old has
@@ -164,6 +162,10 @@ def replace_leaf(t, old, replacement):
     """
     "*** YOUR CODE HERE ***"
 
+    if is_leaf(t) and old == label(t):
+            return tree(replacement)
+    return tree(label(t),[replace_leaf(branch,old,replacement) for branch in branches(t)])
+
 def make_withdraw(balance, password):
     """Return a password-protected withdraw function.
 
@@ -193,6 +195,19 @@ def make_withdraw(balance, password):
     True
     """
     "*** YOUR CODE HERE ***"
+    try_pwds = []
+    def withdraw(amount, pas):
+        nonlocal balance
+        if len(try_pwds) >= 3:
+            return "Your account is locked. Attempts: " + str(try_pwds)
+        if password != pas:
+            try_pwds.append(pas)
+            return 'Incorrect password'
+        if amount > balance:
+           return 'Insufficient funds'
+        balance = balance - amount
+        return balance
+    return withdraw
 
 def make_joint(withdraw, old_pass, new_pass):
     """Return a password-protected withdraw function that has joint access to
@@ -233,8 +248,14 @@ def make_joint(withdraw, old_pass, new_pass):
     "Your account is locked. Attempts: ['my', 'secret', 'password']"
     """
     "*** YOUR CODE HERE ***"
-
-
+    account = withdraw(0, old_pass)
+    if type(account) == str:
+        return account
+    def joint(money, pwd):
+        if pwd == new_pass or pwd == old_pass:
+            return withdraw(money, old_pass)
+        return withdraw(money, pwd)
+    return joint
 
 ## Tree Methods ##
 
@@ -312,10 +333,12 @@ def interval(a, b):
 def lower_bound(x):
     """Return the lower bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[0]
 
 def upper_bound(x):
     """Return the upper bound of interval x."""
     "*** YOUR CODE HERE ***"
+    return x[1]
 
 def str_interval(x):
     """Return a string representation of interval x.
@@ -332,22 +355,26 @@ def add_interval(x, y):
 def mul_interval(x, y):
     """Return the interval that contains the product of any value in x and any
     value in y."""
-    p1 = x[0] * y[0]
-    p2 = x[0] * y[1]
-    p3 = x[1] * y[0]
-    p4 = x[1] * y[1]
+    p1 = lower_bound(x) * lower_bound(y)
+    p2 = lower_bound(x) * upper_bound(y)
+    p3 = upper_bound(x) * lower_bound(y)
+    p4 = upper_bound(x) * upper_bound(y)
     return [min(p1, p2, p3, p4), max(p1, p2, p3, p4)]
 
 def sub_interval(x, y):
     """Return the interval that contains the difference between any value in x
     and any value in y."""
     "*** YOUR CODE HERE ***"
+    lower = lower_bound(x) - upper_bound(y)
+    upper = upper_bound(x) - lower_bound(y)
+    return interval(lower, upper)
 
 def div_interval(x, y):
     """Return the interval that contains the quotient of any value in x divided by
     any value in y. Division is implemented as the multiplication of x by the
     reciprocal of y."""
     "*** YOUR CODE HERE ***"
+    assert upper_bound(y) != 0 and 1/lower_bound(y) != 0
     reciprocal_y = interval(1/upper_bound(y), 1/lower_bound(y))
     return mul_interval(x, reciprocal_y)
 
@@ -373,3 +400,11 @@ def quadratic(x, a, b, c):
     '0 to 10'
     """
     "*** YOUR CODE HERE ***"
+    point = -b/(2*a)
+    point_val = a*point*point + b*point + c
+    lower_val = a*lower_bound(x)*lower_bound(x)+ b*lower_bound(x) + c
+    upper_val = a*upper_bound(x)*upper_bound(x)+ b*upper_bound(x) + c
+    if point > lower_bound(x) and point < upper_bound(x):
+        return interval(min(lower_val,upper_val,point_val), max(lower_val,upper_val,point_val))
+    else:
+        return interval(min(lower_val,upper_val), max(lower_val,upper_val))
